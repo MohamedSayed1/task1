@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Save the image to a directory and get the image path
-    $image_path = 'upload/' . uniqid() . '_' . $image['name'];
+    $image_path =  uniqid() . '_' . $image['name'];
     move_uploaded_file($image['tmp_name'], $image_path);
 
     // Connect to the database and insert the user information
