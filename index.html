@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Task 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .thumbnail {
+            display: none;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+<form id="taskForm" action="index.php" method="post" enctype="multipart/form-data">
+
+    <?php echo '<input type="hidden" name="_token" value="' . csrf_token() . '">'; ?>
+    <input type="text" name="first_name" placeholder="First Name" required>
+    <input type="text" name="last_name" placeholder="Last Name" required>
+    <input type="file" name="user_image" accept="image/*" required>
+    <button type="submit">Submit</button>
+</form>
+
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const imageInput = document.querySelector('input[name="user_image"]');
+        const file = imageInput.files[0];
+
+        if (file) {
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = function() {
+                if (img.width > 0 && img.height > 0) {
+
+                } else {
+                    alert('Invalid image file.');
+                    event.preventDefault();
+                }
+            };
+        }
+    });
+</script>
+</body>
+</html>
